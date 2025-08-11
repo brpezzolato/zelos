@@ -1,8 +1,16 @@
-import { criarChamado, leituraChamados } from '../models/CriarChamado.js';
+import {
+  criarChamado,
+  leituraChamados,
+  chamadosVirgens,
+} from '../models/Chamado.js';
+
+// if (!req.usuarioId) {
+//   return res.status(401).json({ mensagem: 'Usuário não autenticado' });
+// }
 
 const criarChamadoController = async (req, res) => {
   try {
-    const { titulo, descricao, patrimonio, tipo } = req.body;
+    const { titulo, descricao, patrimonio, prioridade, tipo } = req.body;
     const usuario = req.usuarioId || 1;
 
     const chamadosExistentes = await leituraChamados(patrimonio, tipo);
@@ -21,6 +29,7 @@ const criarChamadoController = async (req, res) => {
       titulo: titulo,
       descricao: descricao,
       patrimonio: patrimonio,
+      grau_prioridade: prioridade,
       tipo_id: tipo,
       usuario_id: usuario,
     };
@@ -33,4 +42,14 @@ const criarChamadoController = async (req, res) => {
   }
 };
 
-export { criarChamadoController };
+const listarChamadosController = async (req, res) => {
+  try {
+    const chamados = await chamadosVirgens();
+    res.status(200).json(chamados);
+  } catch (err) {
+    console.error(`Erro ao listar chamados: `, err);
+    res.status(500).json({ mensagem: 'Erro ao listar chamados' });
+  }
+};
+
+export { criarChamadoController, listarChamadosController };

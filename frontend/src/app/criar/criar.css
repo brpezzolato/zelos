@@ -1,0 +1,25 @@
+.form-check-inline input:focus {
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+.input-azul:checked {
+  background-color: #417bd5 !important;
+  border-color: #417bd5 !important;
+}
+
+.input-verde:checked {
+  background-color: #4cc78b !important;
+  border-color: #4cc78b !important;
+}
+
+.input-amarelo:checked {
+  background-color: #ff9d59 !important;
+  border-color: #ff9d59 !important;
+}
+
+.input-vermelho:checked {
+  background-color: #d83d65 !important;
+  border-color: #d83d65 !important;
+}

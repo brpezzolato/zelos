@@ -21,4 +21,13 @@ const leituraChamados = async (patrimonio, tipoId) => {
   }
 };
 
-export { criarChamado, leituraChamados };
+const chamadosVirgens = async () => {
+  try {
+    return await readAll('chamados', `tecnico_id IS NULL`);
+  } catch (error) {
+    console.error('Erro ao obter consultas:', error);
+    throw error;
+  }
+};
+
+export { criarChamado, leituraChamados, chamadosVirgens };
