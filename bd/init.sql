@@ -43,11 +43,7 @@
 	('externo', 'Suporte externo contratado para manutenção de equipamentos.', 'ativo', 1, 1),
 	('manutencao', 'Equipe interna de manutenção preventiva.', 'ativo', 2, 2),
 	('apoio_tecnico', 'Time de apoio técnico para problemas de software e hardware.', 'ativo', 3, 3),
-	('limpeza', 'Serviço de limpeza e higienização de ambientes.', 'ativo', 4, 4),
-	('manutencao', 'Manutenção corretiva emergencial de maquinário.', 'inativo', 2, 2),
-	('apoio_tecnico', 'Suporte técnico temporário para evento especial.', 'ativo', 3, 3),
-	('externo', 'Consultoria terceirizada para revisão elétrica.', 'inativo', 1, 1),
-	('limpeza', 'Limpeza pesada antes da auditoria.', 'ativo', 4, 4);
+	('limpeza', 'Serviço de limpeza e higienização de ambientes.', 'ativo', 4, 4);
 
     -- Criação da tabela `chamados`
     CREATE TABLE chamados (
