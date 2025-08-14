@@ -2,24 +2,31 @@ import './sideuser.css';
 
 import LogoutUser from '../LogoutUser/LogoutUser';
 
+const nomePerfil = 'Giulia Berraquero Ventre';
+const partes = nomePerfil.trim().split(' ');
+const iniciais =
+  partes[0].charAt(0).toUpperCase() +
+  partes[partes.length - 1].charAt(0).toUpperCase();
+const nomeExibido = `${partes[0]} ${partes[partes.length - 1]}`;
+
 export default function Sideuser() {
   return (
     <>
       {/* Nav Computador */}
       <div className="d-none d-md-block">
         <aside className="sidebar">
-          <img
-            src="/logotipos/logoEscritaVermelha.png"
-            className="logo"
-            alt=""
-          />
+          <img src="/logotipos/logoEscritaBranca.png" className="logo" alt="" />
           <div className="sidebtns">
             <a href="">
               <button className="sidepage perfil">
-                <i className="bi bi-person-fill"></i>Perfil
+                <img
+                  src={`https://imageslot.com/v1/600x400?fg=e30615&shadow=23272f&fontsize=128&text=${iniciais}&filetype=png&bold=1`}
+                  className="img-perfil"
+                />
+                <span className="nome-perfil">{nomeExibido}</span>
               </button>
             </a>
-            <div className="dropdown w-100">
+            <div className="dropdown chamados">
               <button
                 className="sidepage chamados dropdown-toggle w-100 text-start"
                 type="button"
@@ -81,7 +88,7 @@ export default function Sideuser() {
             >
               <div className="offcanvas-header">
                 <img
-                  src="/logotipos/logoEscritaVermelha.png"
+                  src="/logotipos/logoEscritaBranca.png"
                   className="logo-mobile"
                   alt=""
                 />
@@ -99,7 +106,7 @@ export default function Sideuser() {
                       <i className="bi bi-person-fill"></i>Perfil
                     </button>
                   </a>
-                  <div className="dropdown w-100">
+                  <div className="dropdown">
                     <button
                       className="sidepage chamados dropdown-toggle w-100 text-start"
                       type="button"

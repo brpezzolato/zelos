@@ -1,73 +1,41 @@
 import express from 'express';
 import passport from '../config/ldap.js';
-import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../config/jwt.js';
+import { loginSucesso } from '../controllers/authController.js';
 
 const router = express.Router();
 
-// Rota de Login
 router.post('/login', (req, res, next) => {
-  // Middleware de autenticação com tratamento de erros
   passport.authenticate('ldapauth', { session: true }, (err, user, info) => {
     try {
       if (err) {
-        console.error('Erro na autenticação:', err);
         return res.status(500).json({ error: 'Erro interno no servidor' });
       }
 
       if (!user) {
-        console.warn(
-          'Falha na autenticação:',
-          info?.message || 'Credenciais inválidas'
-        );
         return res
           .status(401)
           .json({ error: info?.message || 'Autenticação falhou' });
       }
 
-      // Loga o usuário manualmente para garantir a sessão
-      req.logIn(user, (loginErr) => {
+      req.logIn(user, async (loginErr) => {
         if (loginErr) {
-          console.error('Erro ao criar sessão:', loginErr);
           return res.status(500).json({ error: 'Erro ao criar sessão' });
         }
 
-        console.log(
-          'Usuário autenticado:',
-          user.displayName,
-          user.sAMAccountName
-        );
-
-        const tokenJWT = jwt.sign({ id: user.sAMAccountName }, JWT_SECRET, {
-          expiresIn: '1h',
-        });
-
-        return res.json({
-          userAll: user,
-          message: 'Autenticado com sucesso',
-          tokenJWT: tokenJWT,
-          user: {
-            rm: user.sAMAccountName,
-            username: user.username,
-            displayName: user.displayName,
-            email: user.userPrincipalName,
-          },
-        });
+        await loginSucesso(req, res);
       });
     } catch (error) {
-      console.error('Erro inesperado:', error);
       res.status(500).json({ error: 'Erro inesperado no servidor' });
     }
   })(req, res, next);
 });
 
-// Rota de Logout
 router.post('/logout', (req, res) => {
   if (!req.isAuthenticated()) {
     return res.status(401).json({ error: 'Nenhum usuário autenticado' });
   }
 
-  console.log('Usuário deslogando:', req.user?.username);
+  console.log('Usuário deslogando:', req.user?.displayName);
 
   req.logout((err) => {
     if (err) {

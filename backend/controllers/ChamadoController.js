@@ -4,21 +4,18 @@ import {
   chamadosVirgens,
 } from '../models/Chamado.js';
 
-// if (!req.usuarioId) {
-//   return res.status(401).json({ mensagem: 'Usuário não autenticado' });
-// }
-
 const criarChamadoController = async (req, res) => {
+  if (!req.usuarioId) {
+    return res.status(401).json({ mensagem: 'Usuário não autenticado' });
+  }
+
   try {
     const { titulo, descricao, patrimonio, prioridade, tipo } = req.body;
-    const usuario = req.usuarioId || 1;
+    const usuario = req.usuarioId;
 
     const chamadosExistentes = await leituraChamados(patrimonio, tipo);
 
     if (chamadosExistentes.length > 0) {
-      console.log(
-        'Não foi possível criar seu chamado, pois já existe um registro para este mesmo patrimônio e tipo solicitado em aberto.'
-      );
       return res.status(409).json({
         mensagem:
           'Não foi possível criar seu chamado, pois já existe um registro para este mesmo patrimônio e tipo solicitado em aberto.',
@@ -35,7 +32,7 @@ const criarChamadoController = async (req, res) => {
     };
 
     const chamadoId = await criarChamado(chamadoData);
-    res.status(201).json({ mensagem: 'Chamado criado com sucesso', chamadoId });
+    res.status(201).json({ mensagem: 'Seu chamado foi registrado, aguarde que jajá um tecníco responsavél ja vai resolver', chamadoId });
   } catch (error) {
     console.error('Erro ao criar chamado:', error);
     res.status(500).json({ mensagem: 'Erro ao criar chamado' });

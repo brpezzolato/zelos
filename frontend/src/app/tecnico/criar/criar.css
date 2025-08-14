@@ -1,3 +1,37 @@
+body {
+  background-color: #eaeaea;
+}
+
+.botao-patrimonio {
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+  padding: 0px 3px 0px 3px;
+  color: var(--vermelho);
+  font-size: 15px;
+}
+
+.container-criar {
+  margin-left: 17rem;
+  padding: 5%;
+  padding-top: 2% !important;
+}
+
+.swal2-title {
+  padding-top: 0 !important;
+}
+
+.swal2-confirm.swal2-styled {
+  background: linear-gradient(
+    to right,
+    var(--vermelho),
+    var(--vermelhoMedio),
+    var(--vermelhoEscuro)
+  );
+  width: 200px;
+  border-radius: 20px;
+}
+
 .form-check-inline input:focus {
   outline: 0 !important;
   box-shadow: none !important;
@@ -34,7 +68,27 @@
   flex-direction: column;
   display: flex;
   width: 100%;
-  gap: 15px;
+  gap: 20px;
+  background-color: var(--branco);
+  padding: 3% 5% 3% 5%;
+  border-radius: 20px;
+}
+
+.input-criar label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.titulo-criar p {
+  font-size: 3rem;
+  font-size: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 100 !important;
+}
+
+.titulo-criar span {
+  font-size: 3rem;
 }
 
 .input-criar {
@@ -47,8 +101,8 @@
 }
 
 .input-criar:focus {
-  border-color: var(--vermelho) !important;
-  box-shadow: 0 0 0 0.25rem rgba(227, 6, 21, 0.297) !important;
+  border-color: var(--vermelhoEscuro) !important;
+  box-shadow: 0 0 0 0.25rem rgba(145, 6, 6, 0.297) !important;
   outline: 0;
   transition: 0.3s;
 }
@@ -62,16 +116,14 @@
 }
 
 .select-tipo__control--is-focused {
-  border-color: var(--cinza) !important;
-  box-shadow: 0 0 0 0.25rem rgba(227, 6, 21, 0.297) !important;
+  border-color: var(--vermelhoEscuro) !important;
+  box-shadow: 0 0 0 0.25rem rgba(145, 6, 6, 0.297) !important;
   outline: 0;
-  transition: 0.3s;
 }
 
 .select-tipo__placeholder {
   color: var(--vermelhoMedio);
 }
-
 
 .select-tipo__option {
   padding: 10px;
@@ -80,12 +132,17 @@
 }
 
 .select-tipo__option--is-focused {
-  background-color: var(--cinza) !important;
+  background-color: var(--vermelhoEscuro) !important;
   color: var(--branco) !important;
-  transition: 0.2s;
 }
 
 .select-tipo__option--is-selected {
-  background-color: var(--branco) !important;
-  color: var(--preto) !important;
+  background-color: var(--vermelhoEscuro) !important;
+  color: var(--branco) !important;
+}
+
+@media (max-width: 767px) {
+  .container-criar {
+    margin-left: 0;
+  }
 }

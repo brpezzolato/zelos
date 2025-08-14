@@ -2,9 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import session from 'express-session';
 import dotenv from 'dotenv';
+import passport from './config/ldap.js';
 import authRotas from './routes/authRotas.js';
 import criarChamadoRota from './routes/chamadosCriarRota.js';
-import passport from './config/ldap.js';
+import patrimonioRota from './routes/patrimonioRota.js';
 
 // 1. Carrega variáveis de ambiente PRIMEIRO
 dotenv.config();
@@ -47,6 +48,7 @@ try {
 // 5. Rotas
 app.use('/auth', authRotas);
 app.use('/criarchamado', criarChamadoRota);
+app.use('/equipamentos', patrimonioRota);
 
 app.get('/api/equipamentos/filtrar', (req, res) => {
   const { query } = req.query;
