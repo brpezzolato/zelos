@@ -6,7 +6,6 @@ import Select from 'react-select';
 import './criar.css';
 import Button from '@/components/BotaoCriar/BotaoCriar';
 import { getCookie } from 'cookies-next';
-import Link from 'next/link';
 
 const opcoesTipos = [
   { value: '1', label: 'Externo' },
@@ -18,7 +17,7 @@ const opcoesTipos = [
 export default function CriarChamado() {
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
-  const [patrimonio, setPatrimonio] = useState('');
+  const [patrimonio, setPatrimonio] = useState(null);
   const [prioridade, setPrioridade] = useState('');
   const [tipo, setTipo] = useState(null);
   const [resposta, setResposta] = useState('');
@@ -27,10 +26,12 @@ export default function CriarChamado() {
 
   function pagina0() {
     setPaginaPatrimonio(0);
+    setPatrimonio('');
   }
 
   function pagina1() {
     setPaginaPatrimonio(1);
+    setPatrimonio('');
   }
 
   useEffect(() => {
@@ -38,8 +39,8 @@ export default function CriarChamado() {
       .then(async (res) => {
         const data = await res.json();
         const valor = data.map((p) => ({
-          value: p.PATRIMONIO,
-          label: p.PATRIMONIO + ' - ' + p.EQUIPAMENTO,
+          value: `${p.PATRIMONIO} - ${p.EQUIPAMENTO}`,
+          label: `${p.PATRIMONIO} - ${p.EQUIPAMENTO}`,
         }));
         setSelectedPatrimonio(valor);
       })
@@ -49,7 +50,7 @@ export default function CriarChamado() {
   }, []);
 
   async function chamado() {
-    if (!titulo || !descricao || !prioridade || !tipo) {
+    if (!titulo || !descricao || !patrimonio || !tipo) {
       return Swal.fire({
         imageUrl: '/error/erro_tomada.png',
         imageWidth: 310,

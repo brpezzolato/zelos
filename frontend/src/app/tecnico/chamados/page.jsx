@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import './chamados.css';
+import Card from '@/components/CardVirgem/Card2';
 
 export default function Home() {
   const [chamado, setChamado] = useState([]);
@@ -21,7 +22,7 @@ export default function Home() {
       <div className="container-chamados">
         <div className="p-5">
           <h1>Todos os chamados virgens</h1>
-          <pre>{JSON.stringify(chamado, null, 2)}</pre>
+          <Card chamados={chamado} />
         </div>
       </div>
     </>

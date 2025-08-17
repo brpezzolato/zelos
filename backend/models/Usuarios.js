@@ -19,5 +19,4 @@ const criarUsuario = async (dados) =>{
 }
 
 
-
 export { obterUsuario, criarUsuario };

@@ -17,7 +17,7 @@ CREATE TABLE usuarios (
 );
     
 INSERT INTO usuarios (nome, numeroRegistro, senha, email, descricao, status) VALUES 
-('Fulano da Silva', '24166195', '$2b$10$ZKU1Q2gVyZeu2GTQ/BIfGOGfDyjR8eo0Ef3qRTC4Cvmqam6WBcbb.', 'fulano@example.com', 'técnico', 'ativo'	);
+('Fulano da Silva', '', '$2b$10$ZKU1Q2gVyZeu2GTQ/BIfGOGfDyjR8eo0Ef3qRTC4Cvmqam6WBcbb.', 'fulano@example.com', 'técnico', 'ativo');
 
 -- Criar tabela pool
 CREATE TABLE pool (
@@ -45,17 +45,17 @@ CREATE TABLE chamados (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	titulo VARCHAR(255) NOT NULL,
 	descricao TEXT NOT NULL,
-	patrimonio INT NOT NULL,
+	patrimonio TEXT NOT NULL,
 	grau_prioridade ENUM('1', '2', '3', '4') DEFAULT '1',
 	tipo_id INT,
 	tecnico_id INT,
 	usuario_id INT,
-	status ENUM('pendente', 'em andamento', 'concluído') DEFAULT 'pendente',
+	status ENUM('enviado', 'procurando responsável', 'em andamento', 'concluído') DEFAULT 'enviado',
 	criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	FOREIGN KEY (tipo_id) REFERENCES pool(id),
 	FOREIGN KEY (tecnico_id) REFERENCES usuarios(id),
-	FOREIGN KEY (usuario_id) REFERENCES usuarios(id)    
+	FOREIGN KEY (usuario_id) REFERENCES usuarios(id) 
 );
 
     -- Criação da tabela `apontamentos`

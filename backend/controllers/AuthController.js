@@ -18,9 +18,9 @@ const loginSucesso = async (req, res) => {
       console.log(`Usuário não encontrado no banco. Criando: ${nome}`);
 
       const usuarioData = {
-        email,
-        nome,
         numeroRegistro,
+        nome,
+        email,
         senha,
         descricao,
       };

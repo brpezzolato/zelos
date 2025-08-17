@@ -18,7 +18,10 @@ const authMiddleware = (req, res, next) => {
     req.usuarioNome = decoded.nome;
     next();
   } catch (error) {
-    return res.status(403).json({ mensagem: 'Não autorizado: Token inválido' });
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({ mensagem: 'Token expirado' });
+    }
+    return res.status(401).json({ mensagem: 'Token inválido' });
   }
 };
 

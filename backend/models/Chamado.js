@@ -1,4 +1,4 @@
-import { create, readAll } from '../config/database.js';
+import { create, readAll, update } from '../config/database.js';
 
 const criarChamado = async (chamadoData) => {
   try {
@@ -13,7 +13,7 @@ const leituraChamados = async (patrimonio, tipoId) => {
   try {
     return await readAll(
       'chamados',
-      `patrimonio = ${patrimonio} AND tipo_id = ${tipoId} AND status != 'concluído'`
+      `patrimonio = "${patrimonio}" AND tipo_id = ${tipoId} AND status != 'concluído'`
     );
   } catch (error) {
     console.error('Erro ao obter consultas:', error);
@@ -30,4 +30,18 @@ const chamadosVirgens = async () => {
   }
 };
 
-export { criarChamado, leituraChamados, chamadosVirgens };
+const atribuicaoChamadosVirgens = async (id, chamadoData) => {
+  try {
+    await update('chamados', chamadoData, `id = ${id}`);
+  } catch (error) {
+    console.error('Erro ao atribuir chamado: ', error);
+    throw error;
+  }
+};
+
+export {
+  criarChamado,
+  leituraChamados,
+  chamadosVirgens,
+  atribuicaoChamadosVirgens,
+};

@@ -3,7 +3,6 @@ import { leituraPatrimonios } from '../models/Patrimonios.js';
 const listarPatrimoniosController = async (req, res) => {
   try {
     const patrimonios = await leituraPatrimonios();
-    console.log(patrimonios);
     res.status(200).json(patrimonios);
   } catch (err) {
     console.error(`Erro ao listar patrimonios: `, err);

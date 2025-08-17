@@ -2,6 +2,7 @@ import {
   criarChamado,
   leituraChamados,
   chamadosVirgens,
+  atribuicaoChamadosVirgens,
 } from '../models/Chamado.js';
 
 const criarChamadoController = async (req, res) => {
@@ -12,6 +13,8 @@ const criarChamadoController = async (req, res) => {
   try {
     const { titulo, descricao, patrimonio, prioridade, tipo } = req.body;
     const usuario = req.usuarioId;
+
+    console.log(usuario)
 
     const chamadosExistentes = await leituraChamados(patrimonio, tipo);
 
@@ -32,7 +35,11 @@ const criarChamadoController = async (req, res) => {
     };
 
     const chamadoId = await criarChamado(chamadoData);
-    res.status(201).json({ mensagem: 'Seu chamado foi registrado, aguarde que jajá um tecníco responsavél ja vai resolver', chamadoId });
+    res.status(201).json({
+      mensagem:
+        'Seu chamado foi registrado, aguarde que jajá um tecníco responsavél ja vai resolver',
+      chamadoId,
+    });
   } catch (error) {
     console.error('Erro ao criar chamado:', error);
     res.status(500).json({ mensagem: 'Erro ao criar chamado' });
@@ -49,4 +56,30 @@ const listarChamadosController = async (req, res) => {
   }
 };
 
-export { criarChamadoController, listarChamadosController };
+const atribuirChamadoController = async (req, res) => {
+  if (!req.usuarioId) {
+    return res.status(401).json({ mensagem: 'Usuário não autenticado' });
+  }
+  try {
+    const chamadoId = req.params.id;
+    const tecnico = req.usuarioId;
+
+    console.log(`${chamadoId} - ${tecnico}`);
+
+    const tecnicoDesignado = {
+      tecnico_id: tecnico,
+    };
+
+    await atribuicaoChamadosVirgens(chamadoId, tecnicoDesignado);
+    res.status(200).json({ mensagem: 'Chamado atribuído com sucesso.' });
+  } catch (error) {
+    console.error('Erro ao atualizar chamado:', error);
+    res.status(500).json({ mensagem: 'Erro ao atualizar chamado' });
+  }
+};
+
+export {
+  criarChamadoController,
+  listarChamadosController,
+  atribuirChamadoController,
+};
